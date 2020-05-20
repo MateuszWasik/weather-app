@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import MainPage from './container/MainPage/MainPage';
+import WeatherContainer from './container/WeatherContainer/WeatherContainer';
 
 ReactDOM.render(
   <React.StrictMode>
-    <MainPage />
+    <WeatherContainer/>
   </React.StrictMode>,
   document.getElementById('root')
 );
