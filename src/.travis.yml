@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - 12.16.1
+  - node
+dist: bionic
+sudo: required
+
+branches:
+  only:
+    - develop
+
+script:
+  - npm run build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $github_token
+  on:
+    branch: develop
+    node: 12.16.1
+  target_branch: master
+  local_dir: build
