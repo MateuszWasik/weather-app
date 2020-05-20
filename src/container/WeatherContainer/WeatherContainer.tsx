@@ -10,6 +10,7 @@ export const WeatherContainer: React.FC = () => {
 
   useEffect(() => {
     checkGeolocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkGeolocation = () => {
