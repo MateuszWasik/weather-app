@@ -1,14 +1,15 @@
 import React from 'react';
-import { WeatherDataResponse } from '../../api/fetchWeatherData';
+import { WeatherDataResponse } from '../../api/fetchWeatherDataWithCoords';
 
 type Props = {
   data: WeatherDataResponse
 }
 
-export const Weather: React.FC<Props> = ({ data}) => {
+export const Weather: React.FC<Props> = ({data}) => {
   return (
     <div className="weather-component">
       <table>
+        <tbody>
         <tr>
           <td>City</td>
           <td>{data.cityName}</td>
@@ -37,7 +38,8 @@ export const Weather: React.FC<Props> = ({ data}) => {
           <td>Sunset</td>
           <td>{data.sunset}</td>
         </tr>
+        </tbody>
       </table>
     </div>
-  )
-}
+  );
+};

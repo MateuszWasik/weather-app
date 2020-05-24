@@ -4,8 +4,9 @@ const apiKey = '748a5ce04cac6544fea0f6dbc487247f'
 const units = 'metric'
 
 export type FetchWeatherParams = {
-  lon: string,
-  lat: string,
+  lon?: string,
+  lat?: string,
+  q?: string
   appid: string,
   units: string
 }
@@ -42,10 +43,23 @@ export const IntialWeatherDataResponse = {
   sunset: ''
 };
 
-export const fetchWeatherData = (location: any) => {
+export const fetchWeatherDataWithCoords = (location: any) => {
   const prepareFetchParameters: FetchWeatherParams = {
     lon: location.longitude,
     lat: location.latitude,
+    appid: apiKey,
+    units: units
+  };
+
+  const parsedParameters = queryString.stringify(prepareFetchParameters);
+
+  return fetch(`https://api.openweathermap.org/data/2.5/weather?${parsedParameters}`)
+    .then(result => result.json());
+};
+
+export const fetchWeatherDataWithUserDefinedCity = (userDefinedCity: string) => {
+  const prepareFetchParameters: FetchWeatherParams = {
+    q: userDefinedCity,
     appid: apiKey,
     units: units
   };

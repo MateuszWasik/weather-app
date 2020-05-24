@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { fetchWeatherData, IntialWeatherDataResponse, WeatherDataResponse } from '../../api/fetchWeatherData';
+import {
+  fetchWeatherDataWithCoords,
+  fetchWeatherDataWithUserDefinedCity,
+  IntialWeatherDataResponse,
+  WeatherDataResponse
+} from '../../api/fetchWeatherDataWithCoords';
 import { Weather } from '../../component/Weather/Weather';
 
-import * as moment from 'moment'
+import * as moment from 'moment';
+import Button from 'react-bootstrap/Button';
+
+const userInputRegex = new RegExp('^[a-zA-Z]+$');
 
 export const WeatherContainer: React.FC = () => {
 
   const [weatherData, setWeatherData] = useState<WeatherDataResponse>(IntialWeatherDataResponse);
+  const [userDefinedCity, setUserDefinedCity] = useState<string>('');
+  const [weatherDataReady, setWeatherDataReady] = useState<boolean>(false);
 
   useEffect(() => {
     checkGeolocation();
@@ -15,27 +25,34 @@ export const WeatherContainer: React.FC = () => {
 
   const checkGeolocation = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(fetchDataFromLocation);
+      navigator.geolocation.getCurrentPosition(fetchDataFromLocation, geolocationDenied);
     } else {
       //to be implemented
       return null;
     }
   };
 
-  const fetchDataFromLocation = (position: any) => {
+  const fetchDataFromLocation = (position: Position) => {
     const location = {
       longitude: position.coords.longitude,
       latitude: position.coords.latitude
     };
 
-    fetchWeatherData(location).then(weatherDataResponse => {
-      setWeatherData(prepareWeatherData(weatherDataResponse));
-    });
+    fetchWeatherDataWithCoords(location)
+      .then(weatherDataResponse => {
+        setWeatherData(prepareWeatherData(weatherDataResponse));
+      })
+      .then(() => setWeatherDataReady(true));
   };
 
+  const geolocationDenied = () => {
+    setWeatherDataReady(false);
+  };
+
+
   const convertUnixTimestampToDate = (timestamp: number) => {
-      return moment.unix(timestamp).format("DD MMM YYYY hh:mm a")
-  }
+    return moment.unix(timestamp).format("DD MMM YYYY hh:mm a");
+  };
 
   const prepareWeatherData = (response: any) => {
     return {
@@ -55,12 +72,41 @@ export const WeatherContainer: React.FC = () => {
     };
   };
 
+  const CityInput = () => {
+    return (
+      <div className="chooser">
+        <input
+          value={userDefinedCity}
+          onChange={checkRegexExpression}
+          placeholder="Your City"
+        />
+        <Button onClick={onButtonClick}>Send</Button>
+      </div>);
+  };
+
+  const checkRegexExpression = (inputElement: React.ChangeEvent<HTMLInputElement>) => {
+    const value: string = inputElement.target.value;
+
+    if (!value) {
+      setUserDefinedCity('');
+    } else if (userInputRegex.test(value)) {
+      setUserDefinedCity(value);
+    }
+  };
+
+  const onButtonClick = () => {
+    userDefinedCity && fetchWeatherDataWithUserDefinedCity(userDefinedCity)
+      .then(result => setWeatherData(prepareWeatherData(result)))
+      .then(() => setWeatherDataReady(true));
+  };
+
   return <div className="App">
-    <header className="App-header">
-    </header>
-    <Weather
-      data={weatherData}
-    />
+
+    {!weatherDataReady &&
+    CityInput()}
+
+    {weatherDataReady &&
+    <Weather data={weatherData}/>}
   </div>;
 };
 
