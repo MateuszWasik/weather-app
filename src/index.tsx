@@ -4,6 +4,8 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import WeatherContainer from './container/WeatherContainer/WeatherContainer';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 ReactDOM.render(
   <React.StrictMode>
     <WeatherContainer/>
