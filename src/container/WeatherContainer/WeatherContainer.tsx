@@ -96,8 +96,10 @@ export const WeatherContainer: React.FC = () => {
 
   const onButtonClick = () => {
     userDefinedCity && fetchWeatherDataWithUserDefinedCity(userDefinedCity)
-      .then(result => setWeatherData(prepareWeatherData(result)))
-      .then(() => setWeatherDataReady(true));
+      .then(result => {
+        setWeatherData(prepareWeatherData(result))
+        setWeatherDataReady(true)
+      })
   };
 
   return <div className="App">
