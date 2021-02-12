@@ -5,10 +5,11 @@ import {
   IntialWeatherDataResponse,
   WeatherDataResponse
 } from '../../api/fetchWeatherDataWithCoords';
-import { Weather } from '../../component/Weather/Weather';
 
 import * as moment from 'moment';
 import Button from 'react-bootstrap/Button';
+import WeatherComponent from 'component/WeatherComponent/WeatherComponent';
+import './WeatherContainer.sass'
 
 const userInputRegex = new RegExp('^[a-zA-Z]+$');
 
@@ -68,13 +69,14 @@ export const WeatherContainer: React.FC = () => {
       windSpeed: Math.round(response.wind.speed),
       cloudsPercentage: response.clouds.all,
       sunrise: convertUnixTimestampToDate(response.sys.sunrise),
-      sunset: convertUnixTimestampToDate(response.sys.sunset)
+      sunset: convertUnixTimestampToDate(response.sys.sunset),
+      icon: response.weather[0].icon
     };
   };
 
   const CityInput = () => {
     return (
-      <div className="chooser">
+      <div className="city-input">
         <input
           value={userDefinedCity}
           onChange={checkRegexExpression}
@@ -102,13 +104,13 @@ export const WeatherContainer: React.FC = () => {
       })
   };
 
-  return <div className="App">
+  return <div className="weather-container">
 
     {!weatherDataReady &&
     CityInput()}
 
     {weatherDataReady &&
-    <Weather data={weatherData}/>}
+    <WeatherComponent data={weatherData}/>}
   </div>;
 };
 
