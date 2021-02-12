@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.sass';
 import * as serviceWorker from './serviceWorker';
 import WeatherContainer from './container/WeatherContainer/WeatherContainer';
 

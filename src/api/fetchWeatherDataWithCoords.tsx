@@ -25,6 +25,7 @@ export type WeatherDataResponse = {
   cityName: string
   sunrise: string
   sunset: string
+  icon: string
 }
 
 export const IntialWeatherDataResponse = {
@@ -40,7 +41,8 @@ export const IntialWeatherDataResponse = {
   cloudsPercentage: 0,
   cityName: '',
   sunrise: '',
-  sunset: ''
+  sunset: '',
+  icon: ''
 };
 
 export const fetchWeatherDataWithCoords = (location: any) => {
