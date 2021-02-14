@@ -9,6 +9,7 @@ export type FetchWeatherParams = {
   q?: string
   appid: string,
   units: string
+  exclude?: string
 }
 
 export type WeatherDataResponse = {
@@ -28,7 +29,7 @@ export type WeatherDataResponse = {
   icon: string
 }
 
-export const IntialWeatherDataResponse = {
+export const IntialWeatherDataResponse = [{
   weather: '',
   weatherDescription: '',
   temperature: 0,
@@ -43,7 +44,7 @@ export const IntialWeatherDataResponse = {
   sunrise: '',
   sunset: '',
   icon: ''
-};
+}];
 
 export const fetchWeatherDataWithCoords = (location: any) => {
   const prepareFetchParameters: FetchWeatherParams = {
@@ -71,3 +72,18 @@ export const fetchWeatherDataWithUserDefinedCity = (userDefinedCity: string) => 
   return fetch(`https://api.openweathermap.org/data/2.5/weather?${parsedParameters}`)
     .then(result => result.json());
 };
+
+export const fetchWeatherDataWithUserDefinedCity7Days = () => {
+  const prepareFetchParameters = {
+    lat: '50.270908',
+    lon: '19.039993',
+    exclude: 'minutely, hourly, alerts',
+    units: units,
+    appid: apiKey
+  };
+
+  const parsedParameters = queryString.stringify(prepareFetchParameters);
+
+  return fetch(`http://api.openweathermap.org/data/2.5/onecall?${parsedParameters}`)
+    .then(result => result.json());
+}
