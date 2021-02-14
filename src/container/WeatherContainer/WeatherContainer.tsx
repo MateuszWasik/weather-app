@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import {
   fetchGeocodingCoordinates,
   fetchWeatherDataWithCoords,
-  fetchWeatherDataWithUserDefinedCity, GeocodingLocation,
+  fetchWeatherDataWithUserDefinedCity,
+  GeocodingLocation,
   IntialWeatherDataResponse,
   WeatherDataResponse
 } from '../../api/fetchWeatherDataWithCoords'
@@ -19,7 +20,7 @@ export const WeatherContainer: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherDataResponse[]>(IntialWeatherDataResponse)
   const [userDefinedCity, setUserDefinedCity] = useState<string>('')
   const [weatherDataReady, setWeatherDataReady] = useState<boolean>(false)
-  const [geocodeLocation, setGeocodeLocation] = useState <GeocodingLocation>({latitude: '', longitude: ''})
+  const [geocodeLocation, setGeocodeLocation] = useState<GeocodingLocation>({latitude: '', longitude: ''})
   const [geoLocationReady, setGeolocationReady] = useState<boolean>(false)
 
   useEffect(() => {
@@ -135,9 +136,12 @@ export const WeatherContainer: React.FC = () => {
     CityInput()}
 
     {weatherDataReady &&
-    weatherData.map((weather) => {
-      return <WeatherComponent data={weather}/>
-    })
+    <div className="weather-blocks">
+      {weatherData.map((weather) => {
+        return <WeatherComponent data={weather}/>
+      })
+      }
+    </div>
     }
   </div>
 }
