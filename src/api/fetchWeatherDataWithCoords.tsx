@@ -3,16 +3,23 @@ import * as queryString from 'querystring';
 const apiKey = '748a5ce04cac6544fea0f6dbc487247f'
 const units = 'metric'
 
+export type GeocodingLocation = {
+  latitude: string,
+  longitude: string
+}
+
 export type FetchWeatherParams = {
   lon?: string,
   lat?: string,
   q?: string
   appid: string,
   units: string
+  exclude?: string
 }
 
 export type WeatherDataResponse = {
-  weather: string
+  weather: string,
+  date: string
   weatherDescription: string
   temperature: number | undefined
   tempFeelsLike: number
@@ -28,8 +35,9 @@ export type WeatherDataResponse = {
   icon: string
 }
 
-export const IntialWeatherDataResponse = {
+export const IntialWeatherDataResponse = [{
   weather: '',
+  date: '',
   weatherDescription: '',
   temperature: 0,
   tempFeelsLike: 0,
@@ -43,31 +51,32 @@ export const IntialWeatherDataResponse = {
   sunrise: '',
   sunset: '',
   icon: ''
-};
+}];
 
-export const fetchWeatherDataWithCoords = (location: any) => {
-  const prepareFetchParameters: FetchWeatherParams = {
-    lon: location.longitude,
-    lat: location.latitude,
-    appid: apiKey,
-    units: units
-  };
-
-  const parsedParameters = queryString.stringify(prepareFetchParameters);
-
-  return fetch(`https://api.openweathermap.org/data/2.5/weather?${parsedParameters}`)
-    .then(result => result.json());
-};
-
-export const fetchWeatherDataWithUserDefinedCity = (userDefinedCity: string) => {
-  const prepareFetchParameters: FetchWeatherParams = {
+export const fetchGeocodingCoordinates = (userDefinedCity: string) => {
+  const prepareFetchParameters: any = {
     q: userDefinedCity,
+    limit: 1,
+    appid: apiKey
+  }
+
+  const parsedParameters = queryString.stringify(prepareFetchParameters);
+
+  return fetch(`http://api.openweathermap.org/geo/1.0/direct?${parsedParameters}`)
+    .then(result => result.json());
+}
+
+export const fetchWeatherDataWithUserDefinedCity = (data: any) => {
+  const prepareFetchParameters = {
+    lon: data.longitude,
+    lat: data.latitude,
+    exclude: 'minutely, hourly, alerts',
     appid: apiKey,
     units: units
   };
 
   const parsedParameters = queryString.stringify(prepareFetchParameters);
 
-  return fetch(`https://api.openweathermap.org/data/2.5/weather?${parsedParameters}`)
+  return fetch(`https://api.openweathermap.org/data/2.5/onecall?${parsedParameters}`)
     .then(result => result.json());
 };

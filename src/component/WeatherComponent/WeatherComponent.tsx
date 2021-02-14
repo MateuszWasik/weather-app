@@ -17,8 +17,8 @@ const WeatherComponent: React.FC<Props> = ({data}) => {
         <table>
           <tbody>
           <tr>
-            <td>City</td>
-            <td>{data.cityName}</td>
+            <td>Date</td>
+            <td>{data.date}</td>
           </tr>
           <tr>
             <td>Temperature</td>
