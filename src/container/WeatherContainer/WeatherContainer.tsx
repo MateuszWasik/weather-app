@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   fetchGeocodingCoordinates,
-  fetchWeatherDataWithCoords,
   fetchWeatherDataWithUserDefinedCity,
   GeocodingLocation,
   IntialWeatherDataResponse,
@@ -20,49 +19,15 @@ export const WeatherContainer: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherDataResponse[]>(IntialWeatherDataResponse)
   const [userDefinedCity, setUserDefinedCity] = useState<string>('')
   const [weatherDataReady, setWeatherDataReady] = useState<boolean>(false)
-  const [geocodeLocation, setGeocodeLocation] = useState<GeocodingLocation>({latitude: '', longitude: ''})
-  const [geoLocationReady, setGeolocationReady] = useState<boolean>(false)
 
-  useEffect(() => {
-    checkGeolocation()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const checkGeolocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(fetchDataFromLocation, geolocationDenied)
-    } else {
-      //to be implemented
-      return null
-    }
-  }
-
-  const fetchDataFromLocation = (position: Position) => {
-    const location = {
-      longitude: position.coords.longitude,
-      latitude: position.coords.latitude
-    }
-
-    fetchWeatherDataWithCoords(location)
-      .then(weatherDataResponse => {
-        setWeatherData(prepareWeatherData(weatherDataResponse))
-      })
-      .then(() => setWeatherDataReady(true))
-  }
-
-  const geolocationDenied = () => {
-    setWeatherDataReady(false)
-  }
-
-
-  const convertUnixTimestampToDate = (timestamp: number) => {
-    return moment.unix(timestamp).format("DD MMM YYYY hh:mm a")
+  const convertUnixTimestampToDate = (timestamp: number, format = "DD MMM YYYY hh:mm a") => {
+    return moment.unix(timestamp).format(format)
   }
 
   const prepareWeatherData = (response: any) => {
     return response.daily.map((element: any) => {
       return {
-        dateTime: convertUnixTimestampToDate(element.dt),
+        date: convertUnixTimestampToDate(element.dt, "DD MMM YYYY"),
         weather: element.weather[0].main,
         weatherDescription: element.weather[0].description,
         temperature: Math.round(element.temp.day),

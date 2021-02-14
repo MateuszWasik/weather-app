@@ -18,7 +18,8 @@ export type FetchWeatherParams = {
 }
 
 export type WeatherDataResponse = {
-  weather: string
+  weather: string,
+  date: string
   weatherDescription: string
   temperature: number | undefined
   tempFeelsLike: number
@@ -36,6 +37,7 @@ export type WeatherDataResponse = {
 
 export const IntialWeatherDataResponse = [{
   weather: '',
+  date: '',
   weatherDescription: '',
   temperature: 0,
   tempFeelsLike: 0,
@@ -50,23 +52,6 @@ export const IntialWeatherDataResponse = [{
   sunset: '',
   icon: ''
 }];
-
-export const fetchWeatherDataWithCoords = (location: any) => {
-  const prepareFetchParameters: FetchWeatherParams = {
-    lon: location.longitude,
-    lat: location.latitude,
-    exclude: 'minutely, hourly, alerts',
-    units: units,
-    appid: apiKey
-
-  };
-
-  const parsedParameters = queryString.stringify(prepareFetchParameters);
-
-  return fetch(`https://api.openweathermap.org/data/2.5/onecall?${parsedParameters}`)
-    .then(result => result.json());
-};
-
 
 export const fetchGeocodingCoordinates = (userDefinedCity: string) => {
   const prepareFetchParameters: any = {
@@ -85,6 +70,7 @@ export const fetchWeatherDataWithUserDefinedCity = (data: any) => {
   const prepareFetchParameters = {
     lon: data.longitude,
     lat: data.latitude,
+    exclude: 'minutely, hourly, alerts',
     appid: apiKey,
     units: units
   };
