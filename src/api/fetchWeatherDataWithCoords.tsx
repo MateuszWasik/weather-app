@@ -3,6 +3,11 @@ import * as queryString from 'querystring';
 const apiKey = '748a5ce04cac6544fea0f6dbc487247f'
 const units = 'metric'
 
+export type GeocodingLocation = {
+  latitude: string,
+  longitude: string
+}
+
 export type FetchWeatherParams = {
   lon?: string,
   lat?: string,
@@ -50,40 +55,42 @@ export const fetchWeatherDataWithCoords = (location: any) => {
   const prepareFetchParameters: FetchWeatherParams = {
     lon: location.longitude,
     lat: location.latitude,
-    appid: apiKey,
-    units: units
-  };
-
-  const parsedParameters = queryString.stringify(prepareFetchParameters);
-
-  return fetch(`https://api.openweathermap.org/data/2.5/weather?${parsedParameters}`)
-    .then(result => result.json());
-};
-
-export const fetchWeatherDataWithUserDefinedCity = (userDefinedCity: string) => {
-  const prepareFetchParameters: FetchWeatherParams = {
-    q: userDefinedCity,
-    appid: apiKey,
-    units: units
-  };
-
-  const parsedParameters = queryString.stringify(prepareFetchParameters);
-
-  return fetch(`https://api.openweathermap.org/data/2.5/weather?${parsedParameters}`)
-    .then(result => result.json());
-};
-
-export const fetchWeatherDataWithUserDefinedCity7Days = () => {
-  const prepareFetchParameters = {
-    lat: '50.270908',
-    lon: '19.039993',
     exclude: 'minutely, hourly, alerts',
     units: units,
     appid: apiKey
+
   };
 
   const parsedParameters = queryString.stringify(prepareFetchParameters);
 
-  return fetch(`http://api.openweathermap.org/data/2.5/onecall?${parsedParameters}`)
+  return fetch(`https://api.openweathermap.org/data/2.5/onecall?${parsedParameters}`)
+    .then(result => result.json());
+};
+
+
+export const fetchGeocodingCoordinates = (userDefinedCity: string) => {
+  const prepareFetchParameters: any = {
+    q: userDefinedCity,
+    limit: 1,
+    appid: apiKey
+  }
+
+  const parsedParameters = queryString.stringify(prepareFetchParameters);
+
+  return fetch(`http://api.openweathermap.org/geo/1.0/direct?${parsedParameters}`)
     .then(result => result.json());
 }
+
+export const fetchWeatherDataWithUserDefinedCity = (data: any) => {
+  const prepareFetchParameters = {
+    lon: data.longitude,
+    lat: data.latitude,
+    appid: apiKey,
+    units: units
+  };
+
+  const parsedParameters = queryString.stringify(prepareFetchParameters);
+
+  return fetch(`https://api.openweathermap.org/data/2.5/onecall?${parsedParameters}`)
+    .then(result => result.json());
+};

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {
+  fetchGeocodingCoordinates,
   fetchWeatherDataWithCoords,
-  fetchWeatherDataWithUserDefinedCity7Days,
+  fetchWeatherDataWithUserDefinedCity, GeocodingLocation,
   IntialWeatherDataResponse,
   WeatherDataResponse
 } from '../../api/fetchWeatherDataWithCoords'
@@ -18,6 +19,8 @@ export const WeatherContainer: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherDataResponse[]>(IntialWeatherDataResponse)
   const [userDefinedCity, setUserDefinedCity] = useState<string>('')
   const [weatherDataReady, setWeatherDataReady] = useState<boolean>(false)
+  const [geocodeLocation, setGeocodeLocation] = useState <GeocodingLocation>({latitude: '', longitude: ''})
+  const [geoLocationReady, setGeolocationReady] = useState<boolean>(false)
 
   useEffect(() => {
     checkGeolocation()
@@ -97,12 +100,29 @@ export const WeatherContainer: React.FC = () => {
     }
   }
 
-  const onButtonClick = () => {
-    userDefinedCity && fetchWeatherDataWithUserDefinedCity7Days()
+  const prepareGeolocationData = (geocodingResponse: any) => {
+    return {
+      latitude: geocodingResponse[0].lat,
+      longitude: geocodingResponse[0].lon
+    } as GeocodingLocation
+  }
+
+  const prepareAndSetWeatherInformation = () => {
+    userDefinedCity && fetchGeocodingCoordinates(userDefinedCity)
       .then(result => {
-        setWeatherData(prepareWeatherData(result))
-        setWeatherDataReady(true)
+        return prepareGeolocationData(result)
       })
+      .then(result => {
+        fetchWeatherDataWithUserDefinedCity(result)
+          .then(result => {
+            setWeatherData(prepareWeatherData(result))
+            setWeatherDataReady(true)
+          })
+      })
+  }
+
+  const onButtonClick = () => {
+    prepareAndSetWeatherInformation()
   }
 
   return <div className="weather-container">
