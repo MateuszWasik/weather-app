@@ -62,7 +62,7 @@ export const fetchGeocodingCoordinates = (userDefinedCity: string) => {
 
   const parsedParameters = queryString.stringify(prepareFetchParameters);
 
-  return fetch(`http://api.openweathermap.org/geo/1.0/direct?${parsedParameters}`)
+  return fetch(`https://api.openweathermap.org/geo/1.0/direct?${parsedParameters}`)
     .then(result => result.json());
 }
 
