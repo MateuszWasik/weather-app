@@ -1,5 +1,10 @@
-import 'Loader.sass'
+import React from 'react'
+import './Loader.sass'
 
-export const Loader = () => {
-
+const Loader = () => {
+  return (
+    <div className="spinner-border"/>
+  )
 }
+
+export default Loader
