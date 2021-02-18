@@ -49,7 +49,7 @@ export const WeatherContainer: React.FC = () => {
     })
 
     const currentWeather = {
-      date: convertUnixTimestampToDate(current.dt, "dddd hh:mm"),
+      date: convertUnixTimestampToDate(current.dt, "dddd, hh:mm"),
       cityName: userDefinedCity,
       weather: current.weather[0].main,
       weatherDescription: current.weather[0].description,
