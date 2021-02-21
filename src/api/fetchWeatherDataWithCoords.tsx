@@ -28,14 +28,13 @@ export type WeatherDataResponse = {
   pressure: number
   humidity: number
   windSpeed: number
-  cloudsPercentage: number
   cityName: string
   sunrise: string
   sunset: string
   icon: string
 }
 
-export const IntialWeatherDataResponse = [{
+export const InitialWeatherDataResponse = [{
   weather: '',
   date: '',
   weatherDescription: '',
@@ -52,6 +51,24 @@ export const IntialWeatherDataResponse = [{
   sunset: '',
   icon: ''
 }];
+
+export const InitialCurrentDataResponse = {
+  weather: '',
+  date: '',
+  weatherDescription: '',
+  temperature: 0,
+  tempFeelsLike: 0,
+  minTemperature: 0,
+  maxTemperature: 0,
+  pressure: 0,
+  humidity: 0,
+  windSpeed: 0,
+  cloudsPercentage: 0,
+  cityName: '',
+  sunrise: '',
+  sunset: '',
+  icon: ''
+}
 
 export const fetchGeocodingCoordinates = (userDefinedCity: string) => {
   const prepareFetchParameters: any = {

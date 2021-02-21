@@ -1,0 +1,27 @@
+.week-day-container
+  display: flex
+  height: 150px
+  margin: 40px 0 0 40px
+  flex-wrap: wrap
+
+.week-day
+  width: 110px
+  padding: 10px
+  text-align: center
+  border-radius: 10px
+  margin: 10px
+  background-color: #ffffff
+
+  .weather-icon
+    width: 60px
+    margin: auto
+
+    svg
+      width: 100%
+      height: 50px
+
+  .max-temperature
+    font-weight: 700
+
+    &::after
+      content: '\00B0'
