@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
-  fetchGeocodingCoordinates,
-  fetchWeatherDataWithUserDefinedCity,
+  fetchMockGeocodingCoordinates,
+  fetchMockWeatherDataWithUserDefinedCity,
   GeocodingLocation,
   InitialCurrentDataResponse,
   InitialWeatherDataResponse,
@@ -99,14 +99,14 @@ export const WeatherContainer: React.FC = () => {
   }
 
   const prepareAndSetWeatherInformation = () => {
-    userDefinedCity && fetchGeocodingCoordinates(userDefinedCity)
+    userDefinedCity && fetchMockGeocodingCoordinates()
       .then(result => {
         return prepareGeolocationData(result)
       })
       .then(result => {
-        fetchWeatherDataWithUserDefinedCity(result)
-          .then(result => {
-            prepareWeatherDataForRestDays(result)
+        fetchMockWeatherDataWithUserDefinedCity()
+          .then(response => {
+            prepareWeatherDataForRestDays(response)
             setWeatherDataReady(true)
           })
       })
