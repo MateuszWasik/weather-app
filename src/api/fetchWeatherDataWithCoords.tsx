@@ -97,3 +97,15 @@ export const fetchWeatherDataWithUserDefinedCity = (data: any) => {
   return fetch(`https://api.openweathermap.org/data/2.5/onecall?${parsedParameters}`)
     .then(result => result.json());
 };
+
+export const fetchMockGeocodingCoordinates = () => {
+  return fetch('/api/getCoordinates').then((response) => {
+    return response.json()
+  })
+}
+
+export const fetchMockWeatherDataWithUserDefinedCity = () => {
+  return fetch("/api/getWeather").then((response) => {
+    return response.json()
+  })
+}

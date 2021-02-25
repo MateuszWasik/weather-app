@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import WeatherContainer from './container/WeatherContainer/WeatherContainer';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './mock-server/server'
 
 ReactDOM.render(
   <React.StrictMode>
