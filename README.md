@@ -4,11 +4,14 @@
 
 [Weather-App](https://codrill.github.io/weather-app/) is an open-source project designed primarily for learning and assimilation of learned techniques.
 
+## How It Works
+
+This application is using OpenWeatherMapAPI to gather both geographical coordinates of user defined city and weather for next 7 days.
+
 ## Technology Stack 
 - React 
 - TypeScript
 - SCSS
-- Bootstrap
 - MirageJS
 - Travis CI
 
