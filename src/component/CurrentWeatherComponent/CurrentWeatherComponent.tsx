@@ -16,10 +16,6 @@ export const CurrentWeatherComponent: React.FC<any> = ({...data}) => {
         <div className="current-date-time">
           <span>{data.data.date}</span>
         </div>
-        <div className="current-weather-conditions">
-          <span className="description">{data.data.description}</span>
-          <span className="humidity">{data.data.humidity}</span>
-        </div>
       </div>
     </div>
   )
