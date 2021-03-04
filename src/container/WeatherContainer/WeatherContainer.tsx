@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button'
 import './WeatherContainer.sass'
 import { CurrentWeatherComponent } from '../../component/CurrentWeatherComponent/CurrentWeatherComponent'
 import WeekWeatherComponent from '../../component/WeekWeatherComponent/WeekWeatherComponent'
+import WeatherHighlightsContainer from 'container/WeatherHighlightsContainer/WeatherHighlightsContainer'
 
 const userInputRegex = new RegExp('^[a-zA-Z]+$')
 
@@ -40,8 +41,9 @@ export const WeatherContainer: React.FC = () => {
         minTemperature: Math.round(element.temp.min),
         maxTemperature: Math.round(element.temp.max),
         pressure: element.pressure,
-        humidity: element.humidity,
-        windSpeed: Math.round(element.wind_seed),
+        humidity: element.humidity,windSpeed: element.wind_speed,
+        windDeg: element.wind_deg,
+        windGust: element.wind_gust,
         sunrise: convertUnixTimestampToDate(element.sunrise),
         sunset: convertUnixTimestampToDate(element.sunset),
         icon: element.weather[0].icon
@@ -59,7 +61,9 @@ export const WeatherContainer: React.FC = () => {
       maxTemperature: Math.round(current.temp.max),
       pressure: current.pressure,
       humidity: current.humidity,
-      windSpeed: Math.round(current.wind_seed),
+      windSpeed: current.wind_speed,
+      windDeg: current.wind_deg,
+      windGust: current.wind_gust,
       sunrise: convertUnixTimestampToDate(current.sunrise),
       sunset: convertUnixTimestampToDate(current.sunset),
       icon: current.weather[0].icon
@@ -122,7 +126,11 @@ export const WeatherContainer: React.FC = () => {
     {weatherDataReady &&
     <div className="weather-container">
       <CurrentWeatherComponent data={currentWeatherData}/>
-      <WeekWeatherComponent data={weatherData}/>
+      <div className="right-side">
+        <WeekWeatherComponent data={weatherData}/>
+        <WeatherHighlightsContainer data={currentWeatherData}/>
+      </div>
+
     </div>
     }
   </div>
