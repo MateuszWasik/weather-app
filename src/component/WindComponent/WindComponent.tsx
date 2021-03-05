@@ -1,5 +1,6 @@
 import './WindComponent.sass'
 import React from 'react'
+import WindDirectionComponent from './WindDirectionComponent/WindDirectionComponent'
 
 type Props = {
   windSpeed: number
@@ -9,7 +10,7 @@ type Props = {
 
 const WindComponent: React.FC<Props> = ({windSpeed, windDeg, windGust}) => {
 
-  return(
+  return (
     <div className="wind-component">
       <div className="wind-component-title">
         <span>Wind status</span>
@@ -17,8 +18,7 @@ const WindComponent: React.FC<Props> = ({windSpeed, windDeg, windGust}) => {
       <div className="wind-details">
         <span className="wind-speed">{windSpeed} km/h</span>
         <span className="wind-gust">{windGust} km/h</span>
-        <span className="wind-deg">{windDeg}</span>
-
+        <WindDirectionComponent degrees={windDeg}/>
       </div>
 
     </div>
