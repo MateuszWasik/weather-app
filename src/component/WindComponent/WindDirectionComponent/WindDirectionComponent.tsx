@@ -1,5 +1,6 @@
 import React from 'react'
 import DegreeConverter from '../../DegreeConverter/DegreeConverter'
+import { ReactComponent as DirectionArrow } from '../../../assets/WeatherIcons/compass.svg'
 
 type Props = {
   degrees: number
@@ -8,7 +9,7 @@ type Props = {
 const WindDirectionComponent: React.FC<Props> = ({degrees}: Props) => {
   return(
     <span className="wind-direction">
-      {DegreeConverter(degrees)}
+      <DirectionArrow /> {DegreeConverter(degrees)}
     </span>
   )
 }

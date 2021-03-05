@@ -12,7 +12,10 @@ const WeekWeatherComponent: React.FC<Props> = ({data}) => {
     <div className="week-day-container">
       {data.map((weekDay: WeatherDataResponse, index) => {
         return (
-          <div className="week-day" key={index}>
+          <div
+            className="week-day"
+            key={index}
+          >
             <span>{weekDay.date}</span>
             <div className="weather-icon">
               <WeatherIconComponent icon={weekDay.icon}/>
@@ -28,6 +31,9 @@ const WeekWeatherComponent: React.FC<Props> = ({data}) => {
             {/*  href="https://www.flaticon.com/"*/}
             {/*  title="Flaticon"*/}
             {/*>www.flaticon.com</a></div>*/}
+
+            {/*<div>Icons made by <a href="https://smashicons.com/" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>*/}
+
           </div>
         )
       })}
