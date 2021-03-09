@@ -64,8 +64,8 @@ export const WeatherContainer: React.FC = () => {
       windSpeed: current.wind_speed,
       windDeg: current.wind_deg,
       windGust: current.wind_gust,
-      sunrise: convertUnixTimestampToDate(current.sunrise),
-      sunset: convertUnixTimestampToDate(current.sunset),
+      sunrise: convertUnixTimestampToDate(current.sunrise, 'HH:mm'),
+      sunset: convertUnixTimestampToDate(current.sunset, 'HH:mm'),
       icon: current.weather[0].icon
     }
 
