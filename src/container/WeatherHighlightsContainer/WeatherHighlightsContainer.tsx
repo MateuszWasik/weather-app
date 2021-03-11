@@ -1,7 +1,8 @@
 import React from 'react'
 import WindComponent from 'component/WindComponent/WindComponent'
-import { SunriseSunsetComponent } from '../../component/SunriseSunsetComponent/SunriseSunsetComponent'
 import './WeatherHighligthsContainer.sass'
+import { PressureComponent } from 'component/PressureComponent/PressureComponent'
+import { SunriseSunsetComponent } from '../../component/SunriseSunsetComponent/SunriseSunsetComponent'
 
 
 const WeatherHighlightsContainer: React.FC<any> = ({data}) => {
@@ -9,7 +10,7 @@ const WeatherHighlightsContainer: React.FC<any> = ({data}) => {
     <div className="weather-highlights-container">
       <WindComponent windSpeed={data.windSpeed} windDeg={data.windDeg} />
       <SunriseSunsetComponent sunrise={data.sunrise} sunset={data.sunset} />
-
+      <PressureComponent pressure={data.pressure} />
     </div>
   )
 }
