@@ -1,4 +1,5 @@
 import React from 'react'
+import './UvIndexComponent.sass'
 
 type UvProps = {
   uvi: number
