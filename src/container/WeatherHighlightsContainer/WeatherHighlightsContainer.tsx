@@ -3,7 +3,8 @@ import WindComponent from 'component/WindComponent/WindComponent'
 import './WeatherHighligthsContainer.sass'
 import { PressureComponent } from 'component/PressureComponent/PressureComponent'
 import { SunriseSunsetComponent } from '../../component/SunriseSunsetComponent/SunriseSunsetComponent'
-import { UvIndexComponent } from '../../component/UvComponent/UvIndexComponent'
+import { VisibilityComponent } from 'component/VisibilityComponent/VisibilityComponent'
+import { UvIndexComponent } from 'component/UvComponent/UvIndexComponent'
 
 
 const WeatherHighlightsContainer: React.FC<any> = ({data}) => {
@@ -13,6 +14,7 @@ const WeatherHighlightsContainer: React.FC<any> = ({data}) => {
       <SunriseSunsetComponent sunrise={data.sunrise} sunset={data.sunset} />
       <PressureComponent pressure={data.pressure} />
       <UvIndexComponent uvi={data.uvi} />
+      <VisibilityComponent visibility={data.visibility} />
     </div>
   )
 }

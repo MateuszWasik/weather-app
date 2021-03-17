@@ -61,6 +61,7 @@ export const WeatherContainer: React.FC = () => {
       maxTemperature: Math.round(current.temp.max),
       pressure: current.pressure,
       humidity: current.humidity,
+      visibility: current.visibility,
       uvi: current.uvi,
       windSpeed: current.wind_speed,
       windDeg: current.wind_deg,
