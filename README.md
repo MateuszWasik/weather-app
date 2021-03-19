@@ -6,6 +6,8 @@
 
 ## How It Works
 
+During development process app will be using mocked weather data.
+
 This application is using OpenWeatherMapAPI to gather both geographical coordinates of user defined city and weather for next 7 days.
 
 ## Technology Stack 
