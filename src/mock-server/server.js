@@ -69,7 +69,7 @@ import {createServer} from "miragejs"
               "pressure": 1032,
               "humidity": 86,
               "dew_point": 5.28,
-              "uvi": 0,
+              "uvi": 1,
               "clouds": 57,
               "visibility": 10000,
               "wind_speed": 0.45,
